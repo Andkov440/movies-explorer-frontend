@@ -1,0 +1,181 @@
+.about-project {
+    padding: 104px 0;
+    background-color: #202020;
+    margin: 0 70px;
+}
+
+.about-project__content {
+    display: flex;
+    margin-top: 70px;
+    padding-inline-start: 0;
+}
+
+.stage-table__title {
+    margin: 0;
+    color: white;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: -0.04em;
+    text-align: left;
+}
+
+.stage-table__text {
+    margin: 26px 0 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+}
+
+.about-project__stage-table {
+    list-style-type: none;
+}
+
+.about-project__stage-table:first-of-type {
+    margin-right: 53px;
+}
+
+.about-project_content {
+    display: flex;
+}
+
+.about-project__table-item {
+    width: 100%;
+}
+
+.about-project__table-item_green {
+    background-color: #3DDC84;
+    color: black;
+}
+
+.about-project__table-item_grey {
+    background-color: #303030;
+}
+
+.about-project__time-table {
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    padding: 0;
+    list-style: none;
+    margin: 110px 0 0;
+}
+
+.time-table__title {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 17px;
+    text-align: center;
+    padding: 9px 0;
+}
+
+.time-table__description {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 17px;;
+    text-align: center;
+    color: #8B8B8B;
+}
+
+.landing__section-title_70 {
+    width: calc(100% - 140px);
+}
+
+@media all and (max-width: 767px) {
+    .about-project {
+        padding: 90px 0;
+        margin: 0 40px;
+    }
+
+    .stage-table__title {
+        font-size: 20px;
+        line-height: 24px;
+        letter-spacing: -0.04em;
+    }
+
+    .about-project__stage-table:first-of-type {
+        margin-right: 23px;
+    }
+
+    .stage-table__text {
+        margin-top: 21px;
+        font-size: 12px;
+        line-height: 18px;
+    }
+
+    .time-table__title {
+        font-size: 14px;
+        line-height: 17px;
+
+    }
+
+    .about-project__time-table {
+        margin: 95px 0 0;
+    }
+
+    .time-table__description {
+        font-family: Suisse Intl;
+        font-size: 14px;
+        line-height: 17px;
+    }
+
+    .landing__section-title_70 {
+        width: calc(100% - 80px);
+    }
+}
+
+@media all and (max-width: 450px) {
+    .about-project {
+        padding: 70px 0;
+        margin: 0 20px;
+    }
+
+    .about-project__content:first-of-type {
+        flex-direction: column;
+        margin-top: 61px;
+    }
+
+    .about-project__stage-table:first-of-type {
+        margin-right: 0;
+    }
+
+    .about-project__stage-table:last-of-type {
+        margin-top: 57px;
+    }
+
+    .stage-table__title {
+        font-size: 18px;
+        line-height: 22px;
+    }
+
+    .stage-table__text {
+        margin-top: 15px;
+        font-size: 11px;
+        line-height: 16px;
+    }
+
+    .about-project__time-table {
+        margin: 60px 0 0;
+        display: grid;
+        grid-template-columns: 35% 65%;
+    }
+
+    .time-table__title {
+        font-size: 11px;
+        line-height: 13px;
+    }
+
+    .time-table__description {
+        font-family: Suisse Intl;
+        font-size: 11px;
+        font-weight: 400;
+        line-height: 13px;
+        letter-spacing: 0px;
+        text-align: center;
+    }
+
+    .landing__section-title_70 {
+        width: calc(100% - 36px);
+    }
+}
+

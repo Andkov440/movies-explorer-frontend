@@ -1,0 +1,223 @@
+
+.navigation__container {
+    display: flex;
+    width: 100%;
+    flex: 1 auto;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 5px;
+}
+
+.navigation__burger {
+    display: none;
+}
+
+.navigation__menu {
+    z-index: 18;
+    display: flex;
+    flex: 1 auto;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 40px;
+}
+
+.navigation__profile-button {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 32px;
+    color: white;
+    border-radius: 20px;
+    background-color: #313131;
+    font-size: 14px;
+    z-index: 19;
+    border: 0;
+    transition: opacity .2s linear;
+}
+
+.navigation__profile-link {
+    text-decoration: none;
+    color: white;
+}
+
+
+.navigation__profile-button:hover {
+    opacity: .6;
+    cursor: pointer;
+}
+
+.navigation__list {
+    display: flex;
+    position: relative;
+    z-index: 19;
+    padding-inline-start: 0;
+}
+
+.navigation__list li {
+    list-style: none;
+    margin-right: 20px;
+}
+
+.navigation__list li:first-child {
+    display: none;
+}
+
+.navigation__link {
+    text-decoration: none;
+    transition: opacity .2s linear;
+    color: white;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 18px;
+}
+
+.navigation__link:hover {
+    opacity: .6;
+    cursor: pointer;
+}
+
+
+@media all and (max-width: 767px) {
+    .navigation__burger {
+        display: block;
+        position: relative;
+        width: 22px;
+        height: 20px;
+        z-index: 10;
+        border: none;
+        background-color: transparent;
+    }
+
+    .navigation__burger:before,
+    .navigation__burger:after {
+        content: '';
+        background-color: white;
+        position: absolute;
+        width: 100%;
+        height: 2px;
+        margin-left: 0;
+    }
+
+    .navigation__burger:before {
+        top: 0;
+        margin-left: -15px;
+    }
+
+    .navigation__burger:after {
+        bottom: 0;
+        margin-left: -15px;
+    }
+
+    .navigation__burger span {
+        position: absolute;
+        background-color: white;
+        width: 100%;
+        height: 2px;
+        top: 9px;
+        margin-left: -15px;
+    }
+
+
+    .navigation__menu {
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 67%;
+        height: 100%;
+        background-color: #202020;
+        z-index: 1;
+        padding-top: 70px;
+        display: none;
+    }
+
+    .navigation__list {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 95px;
+    }
+
+    .navigation__list li {
+        list-style: none;
+        margin: 0 0 29px 0;
+    }
+
+    .navigation__link {
+        font-size: 18px;
+        padding-bottom: 5px;
+    }
+
+    .navigation__link:hover {
+        padding-bottom: 3px;
+        border-bottom: 2px solid white;
+    }
+
+    .navigation__burger_active:before {
+        transform: rotate(45deg);
+        top: 9px;
+        margin-left: 3px;
+
+    }
+
+    .navigation__burger_active:after {
+        transform: rotate(-45deg);
+        bottom: 9px;
+        margin-left: 3px;
+    }
+
+    .navigation__burger_active span {
+        transform: rotate(0);
+        display: none;
+    }
+
+    .navigation__menu_active {
+        display: block;
+    }
+
+    .navigation__list li:first-child {
+        display: block;
+    }
+
+
+    .navigation__profile-button {
+        position: fixed;
+        left: 55.5%;
+        bottom: 0;
+        margin-bottom: 98px;
+    }
+}
+
+@media all and (max-width: 450px) {
+    .navigation__menu {
+        width: 100%;
+    }
+
+    .navigation__menu {
+        padding-top: 65px;
+
+    }
+
+    .navigation__list li {
+        list-style: none;
+        margin: 0 0 25px 0;
+    }
+
+    .navigation__list {
+        margin-left: 0;
+    }
+
+    .navigation__burger:before,
+    .navigation__burger:after,
+    .navigation__burger span {
+        margin-left: -30px;
+    }
+
+    .navigation__profile-button {
+        position: fixed;
+        left: 35.5%;
+        bottom: 0;
+    }
+
+}

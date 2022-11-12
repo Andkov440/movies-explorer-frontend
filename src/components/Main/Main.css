@@ -1,0 +1,31 @@
+.main__section-title {
+    margin: 0;
+    border-bottom: 1px solid white;
+    padding: 0 0 23px;
+    width: 100%;
+    font-size: 22px;
+    font-weight: 400;
+    line-height: 27px;
+    letter-spacing: -0.04em;
+    text-align: left;
+}
+
+@media all and (max-width: 767px) {
+    .main__section-title {
+        font-size: 22px;
+        font-weight: 400;
+        line-height: 27px;
+    }
+}
+
+@media all and (max-width: 450px) {
+    .main__section-title {
+        padding: 0 0 28px;
+        width: 100%;
+        font-size: 18px;
+        font-weight: 400;
+        line-height: 22px;
+        letter-spacing: -0.04em;
+        text-align: left;
+    }
+}

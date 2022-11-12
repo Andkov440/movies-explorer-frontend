@@ -1,0 +1,95 @@
+.card {
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    background-color: #222222;
+}
+
+
+.card__content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 44px;
+    margin: 0;
+    padding: 0 14px;
+}
+
+.card__text {
+    padding-top: 14px;
+    padding-bottom: 14px;
+    max-width: 280px;
+    /*margin-right: 70px;*/
+}
+
+.card__title {
+    margin-bottom: 9px;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 18px;
+}
+
+.card__duration {
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 13px;
+    color: #8B8B8B;
+}
+
+.card__button {
+    width: 30px;
+    height: 30px;
+    border-radius: 45%;
+    padding: 0;
+    border: none;
+    transition: opacity .2s linear;
+}
+
+.card__button_active {
+    background: transparent url(../../images/icon-saved-active.svg) no-repeat center;
+}
+
+.card__button_inactive {
+    border: none;
+    /*width: 10px;*/
+    /*height: 13px;*/
+    background: #424242 url(../../images/icon__COLOR.svg) no-repeat center;
+}
+
+.card__button_delete {
+    border: none;
+    background: transparent url("data:image/svg+xml;charset=UTF-8,%3csvg width='30' height='30' viewBox='0 0 30 30' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='30' height='30' rx='15' fill='%23313131'/%3e%3cpath fill-rule='evenodd' clip-rule='evenodd' d='M15 15.9429L17.357 18.2999L18.4177 17.2393L16.0607 14.8822L18.2999 12.643L17.2393 11.5823L15 13.8216L12.7609 11.5824L11.7002 12.6431L13.9393 14.8822L11.5824 17.2391L12.6431 18.2998L15 15.9429Z' fill='white'/%3e%3c/svg%3e ");
+}
+
+.card__button:hover {
+    opacity: .6;
+    cursor: pointer;
+}
+
+.card__image {
+    flex-grow: 1;
+    width: 100%;
+    max-height: 203px;
+    object-fit: contain;
+}
+
+
+@media all and (max-width: 767px) {
+    .card {
+        height: 258px;
+    }
+
+    .card__image {
+        max-height: 190px;
+    }
+}
+
+@media screen and (max-width: 540px) {
+   .card {
+       height: 236px;
+   }
+
+    .card__image {
+        max-height: 168px;
+    }
+}

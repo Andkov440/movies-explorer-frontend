@@ -1,0 +1,135 @@
+.techs {
+    padding-top: 100px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #272727;
+}
+
+.techs__title {
+    padding: 0;
+    font-size: 50px;
+    font-weight: 400;
+    line-height: 58px;
+    letter-spacing: -0.04em;
+    text-align: center;
+    margin: 90px 0 0;
+}
+
+.techs__description {
+    margin-top: 26px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: -0.04em;
+    text-align: center;
+    max-width: 460px;
+}
+
+.techs__techsnology {
+    margin-top: 100px;
+    margin-bottom: 100px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.techs__item {
+    width: 90px;
+    height: 60px;
+    background-color: #303030;
+    border-radius: 10px;
+    margin: 0 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 17px;
+    letter-spacing: -0.04em;
+}
+
+.techs__item-text {
+    color: white;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 17px;
+    letter-spacing: -0.04em;
+}
+
+@media all and (max-width: 767px) {
+    .techs {
+        padding: 90px 0;
+        margin: 0;
+    }
+
+    .techs__title {
+        margin-top: 80px;
+    }
+
+    .techs__description {
+        margin-top: 22px;
+        font-size: 12px;
+        line-height: 18px;
+    }
+
+    .techs__techsnology {
+        margin-top: 83px;
+        margin-bottom: 90px;
+    }
+
+    .techs__item {
+        margin: 0 2px;
+        font-size: 12px;
+        line-height: 15px;
+    }
+}
+
+@media all and (max-width: 700px) {
+    .techs__techsnology {
+        display: grid;
+        gap: 10px;
+        list-style: none;
+        margin: 50px 0 70px;
+        padding: 0;
+        justify-items: center;
+        grid-template-columns: repeat(4, auto);
+    }
+}
+
+@media all and (max-width: 450px) {
+    .techs {
+        padding: 70px 0;
+        background-color: #202020;
+    }
+
+    .techs__title {
+        margin-top: 60px;
+        font-size: 30px;
+        line-height: 36px;
+    }
+
+    .techs__description {
+        font-size: 11px;
+        line-height: 16px;
+        letter-spacing: -0.04em;
+        max-width: 292px;
+    }
+
+    .techs__description {
+        margin-top: 23px;
+    }
+
+    .techs__techsnology {
+        grid-template-columns: repeat(2, auto);
+    }
+
+    .techs__item {
+        margin: 0;
+        width: 84px;
+        height: 57px;
+    }
+}
