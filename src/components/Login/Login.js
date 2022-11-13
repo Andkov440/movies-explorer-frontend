@@ -37,24 +37,20 @@ const Login = () => {
                             <input className="form__input"
                                    type="email"
                                    placeholder="pochta@yandex.ru"
-                                   //value={email}
                                    required
                                    onChange={handleLoginChange}
                             />
                             <p className={`form__error ${errors.email ? 'form__error-display' : ''}`}>{errors.email}</p>
-                            {/*<p className={`form__error ${errors.email ? 'form__error-display' : ''}`}>Что-то пошло не так</p>*/}
                         </label>
                         <label className="form__item">
                             <p className="form__label">Пароль</p>
                             <input className="form__input"
                                    type="password"
                                    placeholder="pochta@yandex.ru"
-                                   //value={password}
                                    required
                                    onChange={handleLoginPassword}
                             />
                             <p className={`form__error ${errors.password ? 'form__error-display' : ''}`}>{errors.password}</p>
-                            {/*<p className={`form__error ${errors.password  ? 'form__error-display' : ''}`}>Что-то пошло не так</p>*/}
                         </label>
                     </div>
                     <button className={`form__button ${isValid ? "" : "form__button_disabled"}`}

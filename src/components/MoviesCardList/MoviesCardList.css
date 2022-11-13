@@ -6,13 +6,14 @@
 }
 
 .cards__list {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    display: flex;
+    flex-wrap: wrap;
     gap: 27px 23px;
     padding: 0;
     box-sizing: border-box;
     list-style: none;
     margin: 10px 0 30px;
+    justify-content: center;
 }
 
 
@@ -48,7 +49,6 @@
      margin-top: 70px;
  }
     .cards__list {
-        grid-template-columns: repeat(2, 1fr);
         margin-top: 0;
         gap: 18px 35px;
         margin-bottom: 40px;
@@ -63,9 +63,6 @@
     }
 
     .cards__list {
-        grid-template-columns: 1fr;
-        grid-column-gap: 0;
-        grid-row-gap: 16px;
         margin-top: 50px;
         margin-bottom: 0;
     }

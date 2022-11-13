@@ -18,9 +18,6 @@ import {useLocation} from "react-router-dom";
 import Main from "./Main/Main";
 
 
-/**
- * @return {boolean}
- */
 function App() {
 
     const [showItems, setShowItems] = useState(false);
