@@ -10,8 +10,8 @@ function MoviesCard({ film, savedMoviesToggle, filmsSaved }) {
         <li className="card">
             <div className="card__content">
                 <div className="card__text">
-                    <div className="card__title">{ film.title }</div>
-                    <div className="card__duration"> {film.duration }</div>
+                    <h2 className="card__title">{ film.title }</h2>
+                    <p className="card__duration"> {film.duration }</p>
                 </div>
                 {pathname === '/saved-movies' ? (
                     <button type="button" className="card__button card__button_delete" />
@@ -20,9 +20,7 @@ function MoviesCard({ film, savedMoviesToggle, filmsSaved }) {
                     <button type="button" className={`card__button card__button_active`} />
                 )}
             </div>
-            <div className="">
                 <img className="card__image" src={`${film.image}`} alt={film.title}></img>
-            </div>
         </li>
     );
 }
