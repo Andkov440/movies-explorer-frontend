@@ -1,5 +1,12 @@
-export const baseUrl = 'https://nomoreparties.co/v1/cohort-43/';
-export const baseUrlAuth  =  'https://auth.nomoreparties.co';
-export const headers = {
-    "Content-Type": "application/json",
+const MOBILE_WIDTH = 320;
+const TABLET_WIDTH = 768;
+const DESKTOP_WIDTH = 1280;
+
+const DURATION = 40;
+
+export {
+    MOBILE_WIDTH,
+    TABLET_WIDTH,
+    DESKTOP_WIDTH,
+    DURATION
 };

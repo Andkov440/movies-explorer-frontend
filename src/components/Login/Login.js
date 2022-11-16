@@ -4,22 +4,35 @@ import { Link } from "react-router-dom";
 import isEmail from 'validator/es/lib/isEmail';
 import '../Form/Form.css';
 
-const Login = () => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+function Login ( { onLogin } )  {
+    const [inputValues, setInputValues] = useState({});
 
     const [errors, setErrors] = useState({});
     const [isValid, setIsValid] = useState(false);
 
-    function handleLoginChange(e) {
-    }
-
-    function handleLoginPassword(e) {
-    }
 
     function handleSubmit(e) {
-
+        e.preventDefault();
+        onLogin( inputValues );
     }
+
+    const handleInputChange = (e) => {
+        const target = e.target;
+        const name = target.name;
+        const value = target.value;
+
+        if (name === 'email') {
+            if (!isEmail(value)) {
+                target.setCustomValidity('Некорректый адрес электронной почты');
+            } else {
+                target.setCustomValidity('');
+            }
+        }
+
+        setInputValues({ ...inputValues, [name]: value });
+        setErrors({ ...errors, [name]: target.validationMessage });
+        setIsValid(target.closest('form').checkValidity());
+    };
 
     return (
         <section className="form">
@@ -36,9 +49,11 @@ const Login = () => {
                             <p className="form__label">E-mail</p>
                             <input className="form__input"
                                    type="email"
+                                   name="email"
                                    placeholder="pochta@yandex.ru"
+                                   value={inputValues.email || ''}
                                    required
-                                   onChange={handleLoginChange}
+                                   onChange={ handleInputChange }
                             />
                             <p className={`form__error ${errors.email ? 'form__error-display' : ''}`}>{errors.email}</p>
                         </label>
@@ -46,11 +61,15 @@ const Login = () => {
                             <p className="form__label">Пароль</p>
                             <input className="form__input"
                                    type="password"
-                                   placeholder="pochta@yandex.ru"
+                                   name="password"
+                                   placeholder=""
+                                   value={inputValues.password || ''}
+                                   minLength="2"
                                    required
-                                   onChange={handleLoginPassword}
+                                   onChange={handleInputChange }
                             />
                             <p className={`form__error ${errors.password ? 'form__error-display' : ''}`}>{errors.password}</p>
+
                         </label>
                     </div>
                     <button className={`form__button ${isValid ? "" : "form__button_disabled"}`}

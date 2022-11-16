@@ -3,6 +3,7 @@ import {Link, useLocation} from 'react-router-dom';
 import headerLogo from '../../images/header_logo.svg';
 import NavAuth from '../NavAuth/NavAuth';
 import Navigation from '../Navigation/Navigation';
+import {useEffect} from "react";
 
 const Header = (props) => {
     return (
