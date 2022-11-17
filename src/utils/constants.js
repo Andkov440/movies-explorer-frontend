@@ -1,4 +1,4 @@
-const MOBILE_WIDTH = 320;
+const MOBILE_WIDTH = 480;
 const TABLET_WIDTH = 768;
 const DESKTOP_WIDTH = 1280;
 

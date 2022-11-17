@@ -67,7 +67,6 @@
     outline: none;
     border: none;
     border-radius: 48px;
-    /*background-color: #4285F4;*/
     background: transparent url(../../images/icon-find.svg) no-repeat center;
     color: white;
     transition: opacity .2s linear;
@@ -137,7 +136,7 @@
 }
 
 .search__checkbox:checked + .search__slider {
-    //background-color: #3DDC84;
+    /* background-color: #3DDC84; */
 }
 
 .search__checkbox:checked + .search__slider::before {

@@ -41,7 +41,6 @@ function Profile({ onLoggedOut , openPopup }) {
         }
     }
 
-
     React.useEffect(() => {
         setActiveButton(!(currentUser.name === lastName || currentUser.email === lastEmail))
     }, [currentUser, lastName, lastEmail]);
@@ -49,8 +48,6 @@ function Profile({ onLoggedOut , openPopup }) {
 
     function handleSubmit(e) {
         e.preventDefault();
-
-
         mainApi.sendUserInfo({ name, email })
             .then(() => {
             setLastName(name);
@@ -96,7 +93,6 @@ function Profile({ onLoggedOut , openPopup }) {
                 </div>
 
                 <label className="form__item">
-                    {/*<p className={`form__error ${errors.email ? 'form__error-display' : ''}`}>{errors.email}</p>*/}
                 </label>
 
                 <button className="profile__button" disabled={!isActiveButton}>Редактировать</button>

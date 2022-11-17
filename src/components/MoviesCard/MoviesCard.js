@@ -34,8 +34,6 @@ function MoviesCard({film, onBookmarkClick, filmsSaved}) {
                 setIsAdded(false);
             }
         }
-
-
     }, [pathname, filmsSaved, film.id]);
 
     return (
