@@ -4,3 +4,5 @@
 
 Фронтенд: mymovies.nomoredomains.icu
 Бекэнд: api.mymovies.nomoredomains.icu
+
+Пул-реквест: https://github.com/Andkov440/movies-explorer-frontend/pull/2
