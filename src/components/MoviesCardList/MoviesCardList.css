@@ -17,7 +17,7 @@
 }
 
 
-.cards__button-container {
+.cards__button-wrapper {
     width: 320px;
     margin: 0 auto;
     padding: 45px 0 49px;
@@ -67,7 +67,7 @@
         margin-bottom: 0;
     }
 
-    .cards__button-container {
+    .cards__button-wrapper {
         width: 240px;
     }
 }

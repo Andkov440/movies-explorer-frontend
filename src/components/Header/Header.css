@@ -34,7 +34,7 @@
     margin-bottom: 18px;
 }
 
-.header__container {
+.header__wrapper {
     display: flex;
     flex: 1 auto;
     justify-content: space-between;
@@ -108,7 +108,7 @@
     outline: 0;
 }
 
-.header__container_auth-off {
+.header__wrapper_auth-off {
     justify-content: flex-end;
 }
 

@@ -1,11 +1,11 @@
 import './SearchForm.css';
 import React, {useEffect, useState} from 'react';
-import searchIco from "../../images/icon__CCOLOR_icon-2.svg";
+import searchIcon from "../../images/icon2.svg";
 
 const SearchForm = ({handleGetMovies, filmsInputSearch, handleGetFilmsSwitch, filmsSwitch }) => {
 
-    const [switchSearch, setSwitchSearch] = useState(false);
     const [inputSearch, setInputSearch] = useState('');
+    const [switchSearch, setSwitchSearch] = useState(false);
 
     function handleInputChange(e) {
         setInputSearch(e.target.value);
@@ -34,7 +34,7 @@ const SearchForm = ({handleGetMovies, filmsInputSearch, handleGetFilmsSwitch, fi
             <form className="search">
                 <div className="search__content">
                     <div className="search__string-content">
-                        <img className="search__ico" src={searchIco}  alt="логотип"></img>
+                        <img className="search__ico" src={searchIcon}  alt="логотип"></img>
                         <input className="search__input"
                                placeholder="Фильм"
                                type="text"

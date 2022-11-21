@@ -1,206 +1,202 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, { useContext, useEffect, useState } from "react";
 import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
-import moviesApi from "../../utils/MoviesApi";
-import mainApi from "../../utils/MainApi";
 import Preloader from "../Preloader/Preloader";
-import {DURATION} from "../../utils/constants";
+import mainApi from "../../utils/MainApi";
+import moviesApi from "../../utils/MoviesApi";
 
-function Movies({openPopup, isLoading}) {
+function Movies({ openPopup, isLoading }) {
+  const DURATION = 40;
 
-    const [films, setFilms] = useState(null);
-    const [filmsInputSearch, setFilmsInputSearch] = useState('');
-    const [filmsSaved, setFilmsSaved] = useState([]);
+  const [filmsSwitch, setFilmsSwitch] = useState(true);
 
+  const [bookmarkClick, setBookmarkClick] = useState(false);
 
-    const [preloader, setPreloader] = useState(false);
-    const [error, setError] = useState(false);
+  const [films, setFilms] = useState(null);
+  const [filmsInputSearch, setFilmsInputSearch] = useState("");
+  const [filmsSaved, setFilmsSaved] = useState([]);
 
-    const [filmsSwitch, setFilmsSwitch] = useState(true);
+  const [preloader, setPreloader] = useState(false);
+  const [error, setError] = useState(false);
 
-    const [bookmarkClick, setBookmarkClick] = useState(false);
+  const filterShortFilm = (moviesToFilter) =>
+    moviesToFilter.filter((item) => item.duration <= DURATION);
 
-    const filterShortFilm = (moviesToFilter) => moviesToFilter.filter((item) => item.duration <= DURATION);
+  useEffect(() => {
+    const checkbox = localStorage.getItem("filmsSwitch");
+    setFilmsSwitch(checkbox === "true");
 
+    const localStorageFilmsInputSearch =
+      localStorage.getItem("filmsInputSearch");
 
-    useEffect(() => {
-        const checkbox = localStorage.getItem('filmsSwitch');
-        setFilmsSwitch(checkbox === 'true');
+    const localStorageFilmsSaved = localStorage.getItem("filmsSaved");
 
-
-        const localStorageFilmsInputSearch = localStorage.getItem('filmsInputSearch');
-
-        const localStorageFilmsSaved = localStorage.getItem('filmsSaved');
-
-        if (localStorageFilmsSaved) {
-            setFilmsSaved(JSON.parse(localStorageFilmsSaved));
-        }
-
-        const localStorageFilms = localStorage.getItem('films');
-        const localStorageFilmsFilter = localStorage.getItem('filmsFilter');
-
-        if (localStorageFilms) {
-            const filterData = JSON.parse(localStorageFilmsFilter);
-            setFilms(filterData);
-            setPreloader(false);
-        }
-
-        if (localStorageFilmsInputSearch) {
-            setFilmsInputSearch(localStorageFilmsInputSearch);
-        }
-    }, [openPopup]);
-
-    useEffect(() => {
-        const checkbox = localStorage.getItem('filmsSwitch');
-        setFilmsSwitch(checkbox === 'false');
-    }, [filmsSwitch]);
-
-    useEffect(() => {
-        const localStorageFilmsSaved = localStorage.getItem('filmsSaved');
-
-        if (localStorageFilmsSaved) {
-            setFilmsSaved(JSON.parse(localStorageFilmsSaved));
-        }
-
-        if (localStorageFilmsSaved === null)
-            mainApi.getMovies()
-                .then((data) => {
-                    setFilmsSaved(data);
-                    localStorage.setItem('filmsSaved', JSON.stringify(data));
-                })
-                .catch((err) => {
-                    openPopup({err}, false);
-                });
-
-    }, [bookmarkClick]);
-
-
-    async function handleGetFilmsSwitch() {
-        setFilmsSwitch(!filmsSwitch);
-        localStorage.setItem('filmsSwitch', filmsSwitch);
+    if (localStorageFilmsSaved) {
+      setFilmsSaved(JSON.parse(localStorageFilmsSaved));
     }
 
-    async function onBookmarkClick(film, isAdded) {
-        if (isAdded) {
-            let jsonFilm = {
-                image: 'https://api.nomoreparties.co' + film.image.url,
-                trailerLink: film.trailerLink,
-                thumbnail: 'https://api.nomoreparties.co' + film.image.url,
-                movieId: film.id,
-                country: film.country || 'Неизвестно',
-                director: film.director,
-                duration: film.duration,
-                year: film.year,
-                description: film.description,
-                nameRU: film.nameRU,
-                nameEN: film.nameEN,
-            };
-            try {
-                await mainApi.addMovies(jsonFilm).then((result) => {
-                    setFilmsSaved([filmsSaved.push(result)]);
-                    localStorage.setItem('filmsSaved', JSON.stringify(filmsSaved));
-                    setBookmarkClick(!bookmarkClick);
-                })
+    const localStorageFilms = localStorage.getItem("films");
+    const localStorageFilmsFilter = localStorage.getItem("filmsFilter");
 
-            } catch {
-                openPopup(`Ошибка добавления фильма!`, false);
-            }
-        } else {
-            try {
-                await mainApi.deleteMovies(film._id);
-                let temp = filmsSaved.filter(obj => obj._id != film._id);
-                setFilmsSaved(temp);
-                localStorage.setItem('filmsSaved', JSON.stringify(temp))
-            } catch (err) {
-                openPopup(`Ошибка удаления фильма!`, false);
-            }
-        }
+    if (localStorageFilms) {
+      const filterData = JSON.parse(localStorageFilmsFilter);
+      setFilms(filterData);
+      setPreloader(false);
     }
 
-    async function handleGetMovies(filmsInputSearch) {
+    if (localStorageFilmsInputSearch) {
+      setFilmsInputSearch(localStorageFilmsInputSearch);
+    }
+  }, [openPopup]);
 
-        if (!filmsInputSearch) {
-            openPopup('Введите ключевое слово и повторите  поиск!', false)
-            setError(true);
-            return false;
-        }
+  useEffect(() => {
+    const checkbox = localStorage.getItem("filmsSwitch");
+    setFilmsSwitch(checkbox === "false");
+  }, [filmsSwitch]);
 
-        setError(false);
-        setPreloader(true);
+  useEffect(() => {
+    const localStorageFilmsSaved = localStorage.getItem("filmsSaved");
 
-        try {
-
-            const localStorageFilms = localStorage.getItem('films');
-            const localStorageFilmsFilter = localStorage.getItem('filmsFilter');
-            let filmsFilter  = [];
-
-            if (localStorageFilms === null) {
-                const filmsArray = await moviesApi.getMovies();
-                localStorage.setItem('films', JSON.stringify(filmsArray)); 
-
-                filmsFilter = filmsArray.filter(({nameRU}) =>
-                    nameRU.toLowerCase().includes(filmsInputSearch.toLowerCase()));
-
-                localStorage.setItem('filmsFilter', JSON.stringify(filmsFilter)); 
-            } else {
-
-                filmsFilter = JSON.parse(localStorageFilms).filter(({nameRU}) =>
-                    nameRU.toLowerCase().includes(filmsInputSearch.toLowerCase()));
-
-                localStorage.setItem('filmsFilter', JSON.stringify(filmsFilter)); 
-            }
-
-
-            if (filmsFilter.length > 0) {
-                if (filmsSwitch) {
-                    openPopup('Найдено фильмов: ' + filmsFilter.length, true)
-                }
-
-                if (!filmsSwitch) {
-                    openPopup('Найдено фильмов: ' + filterShortFilm(filmsFilter).length, true)
-                }
-
-            } else {
-                openPopup('Ничего не найдено', false)
-            }
-
-            localStorage.setItem('filmsFilter', JSON.stringify(filmsFilter)); 
-            localStorage.setItem('filmsInputSearch', filmsInputSearch);    
-            localStorage.setItem('filmsSwitch', filmsSwitch);    
-
-        } catch (err) {
-            openPopup(`Во время запроса произошла ошибка.       Попробуйте позже.`, false);
-            setFilms([]);
-            setError(true);
-            localStorage.removeItem('films');
-            localStorage.removeItem('filmsFilter');
-            localStorage.removeItem('filmsInputSearch');
-            localStorage.removeItem('filmsSwitch');
-        } finally {
-            setPreloader(false);
-        }
+    if (localStorageFilmsSaved) {
+      setFilmsSaved(JSON.parse(localStorageFilmsSaved));
     }
 
-    return (
-        <section>
-            <SearchForm
-                handleGetMovies={handleGetMovies}
-                filmsInputSearch={filmsInputSearch}
-                handleGetFilmsSwitch={handleGetFilmsSwitch}
-                filmsSwitch={filmsSwitch}
-            />
+    if (localStorageFilmsSaved === null)
+      mainApi
+        .getMovies()
+        .then((data) => {
+          setFilmsSaved(data);
+          localStorage.setItem("filmsSaved", JSON.stringify(data));
+        })
+        .catch((err) => {
+          openPopup({ err }, false);
+        });
+  }, [bookmarkClick]);
 
-            {preloader && <Preloader/>}
+  function handleGetFilmsSwitch() {
+    setFilmsSwitch(!filmsSwitch);
+    localStorage.setItem("filmsSwitch", filmsSwitch);
+  }
 
-            {!preloader && !error && films !== null && filmsSaved !== null && (
-                <MoviesCardList
-                    films={filmsSwitch ? films : filterShortFilm(films)}
-                    onBookmarkClick={onBookmarkClick}
-                    filmsSaved={filmsSaved}
-                />
-            )}
-        </section>
-    );
+  function onBookmarkClick(film, isAdded) {
+    if (isAdded) {
+      let jsonFilm = {
+        image: "https://api.nomoreparties.co" + film.image.url,
+        trailerLink: film.trailerLink,
+        thumbnail: "https://api.nomoreparties.co" + film.image.url,
+        movieId: film.id,
+        country: film.country || "Неизвестно",
+        director: film.director,
+        duration: film.duration,
+        year: film.year,
+        description: film.description,
+        nameRU: film.nameRU,
+        nameEN: film.nameEN,
+      };
+      try {
+        mainApi.addMovies(jsonFilm).then((result) => {
+          setFilmsSaved([filmsSaved.push(result)]);
+          localStorage.setItem("filmsSaved", JSON.stringify(filmsSaved));
+          setBookmarkClick(!bookmarkClick);
+        });
+      } catch {
+        openPopup(`Ошибка добавления фильма!`, false);
+      }
+    } else {
+      try {
+        mainApi.deleteMovies(film._id);
+        let temp = filmsSaved.filter((obj) => obj._id != film._id);
+        setFilmsSaved(temp);
+        localStorage.setItem("filmsSaved", JSON.stringify(temp));
+      } catch (err) {
+        openPopup(`Ошибка удаления фильма!`, false);
+      }
+    }
+  }
+
+  function handleGetMovies(filmsInputSearch) {
+    if (!filmsInputSearch) {
+      openPopup("Введите ключевое слово и повторите  поиск!", false);
+      setError(true);
+      return false;
+    }
+
+    setError(false);
+    setPreloader(true);
+
+    try {
+      const localStorageFilms = localStorage.getItem("films");
+      const localStorageFilmsFilter = localStorage.getItem("filmsFilter");
+      let filmsFilter = [];
+
+      if (localStorageFilms === null) {
+        const filmsArray = moviesApi.getMovies();
+        localStorage.setItem("films", JSON.stringify(filmsArray));
+
+        filmsFilter = filmsArray.filter(({ nameRU }) =>
+          nameRU.toLowerCase().includes(filmsInputSearch.toLowerCase())
+        );
+
+        localStorage.setItem("filmsFilter", JSON.stringify(filmsFilter));
+      } else {
+        filmsFilter = JSON.parse(localStorageFilms).filter(({ nameRU }) =>
+          nameRU.toLowerCase().includes(filmsInputSearch.toLowerCase())
+        );
+
+        localStorage.setItem("filmsFilter", JSON.stringify(filmsFilter));
+      }
+
+      if (filmsFilter.length > 0) {
+        if (filmsSwitch) {
+          openPopup("Найдено фильмов: " + filmsFilter.length, true);
+        }
+
+        if (!filmsSwitch) {
+          openPopup(
+            "Найдено фильмов: " + filterShortFilm(filmsFilter).length,
+            true
+          );
+        }
+      } else {
+        openPopup("Ничего не найдено", false);
+      }
+
+      localStorage.setItem("filmsFilter", JSON.stringify(filmsFilter));
+      localStorage.setItem("filmsInputSearch", filmsInputSearch);
+      localStorage.setItem("filmsSwitch", filmsSwitch);
+    } catch (err) {
+      openPopup(`Во время запроса произошла ошибка.`, false);
+      setFilms([]);
+      setError(true);
+      localStorage.removeItem("films");
+      localStorage.removeItem("filmsFilter");
+      localStorage.removeItem("filmsInputSearch");
+      localStorage.removeItem("filmsSwitch");
+    } finally {
+      setPreloader(false);
+    }
+  }
+
+  return (
+    <section>
+      <SearchForm
+        handleGetMovies={handleGetMovies}
+        filmsInputSearch={filmsInputSearch}
+        handleGetFilmsSwitch={handleGetFilmsSwitch}
+        filmsSwitch={filmsSwitch}
+      />
+
+      {preloader && <Preloader />}
+
+      {!preloader && !error && films !== null && filmsSaved !== null && (
+        <MoviesCardList
+          films={filmsSwitch ? films : filterShortFilm(films)}
+          onBookmarkClick={onBookmarkClick}
+          filmsSaved={filmsSaved}
+        />
+      )}
+    </section>
+  );
 }
 
 export default Movies;
