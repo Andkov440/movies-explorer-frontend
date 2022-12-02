@@ -63,12 +63,16 @@ function App() {
             history.push(path);
           } else {
             setLoggedIn(false);
+            localStorage.removeItem("films");
+            localStorage.removeItem("filmsFilter");
+            localStorage.removeItem("filmsInputSearch");
+            localStorage.removeItem("filmsSwitch");
+            localStorage.removeItem("filmsSaved");
             localStorage.clear();
             setCurrentUser(null);
           }
         })
-        .catch((err) => {
-        });
+        .catch((err) => {});
     };
 
     if (jwt) {
@@ -82,7 +86,7 @@ function App() {
         if (res) {
           setIsOpenPopup(true);
           setPopupImage(success);
-          setPopupTitle("Вы успешно зарегистрировались");
+          setPopupTitle("Успешная регистрация");
 
           onLogin(name, email);
         }

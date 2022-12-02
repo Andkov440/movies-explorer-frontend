@@ -1,23 +1,22 @@
 import React, { useContext, useEffect, useState } from "react";
 import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
-import Preloader from "../Preloader/Preloader";
-import mainApi from "../../utils/MainApi";
 import moviesApi from "../../utils/MoviesApi";
+import mainApi from "../../utils/MainApi";
+import Preloader from "../Preloader/Preloader";
 
 function Movies({ openPopup, isLoading }) {
   const DURATION = 40;
-
-  const [filmsSwitch, setFilmsSwitch] = useState(true);
-
-  const [bookmarkClick, setBookmarkClick] = useState(false);
-
   const [films, setFilms] = useState(null);
   const [filmsInputSearch, setFilmsInputSearch] = useState("");
   const [filmsSaved, setFilmsSaved] = useState([]);
 
   const [preloader, setPreloader] = useState(false);
   const [error, setError] = useState(false);
+
+  const [filmsSwitch, setFilmsSwitch] = useState(true);
+
+  const [bookmarkClick, setBookmarkClick] = useState(false);
 
   const filterShortFilm = (moviesToFilter) =>
     moviesToFilter.filter((item) => item.duration <= DURATION);
@@ -73,12 +72,12 @@ function Movies({ openPopup, isLoading }) {
         });
   }, [bookmarkClick]);
 
-  function handleGetFilmsSwitch() {
+  async function handleGetFilmsSwitch() {
     setFilmsSwitch(!filmsSwitch);
     localStorage.setItem("filmsSwitch", filmsSwitch);
   }
 
-  function onBookmarkClick(film, isAdded) {
+  async function onBookmarkClick(film, isAdded) {
     if (isAdded) {
       let jsonFilm = {
         image: "https://api.nomoreparties.co" + film.image.url,
@@ -94,7 +93,7 @@ function Movies({ openPopup, isLoading }) {
         nameEN: film.nameEN,
       };
       try {
-        mainApi.addMovies(jsonFilm).then((result) => {
+        await mainApi.addMovies(jsonFilm).then((result) => {
           setFilmsSaved([filmsSaved.push(result)]);
           localStorage.setItem("filmsSaved", JSON.stringify(filmsSaved));
           setBookmarkClick(!bookmarkClick);
@@ -104,7 +103,7 @@ function Movies({ openPopup, isLoading }) {
       }
     } else {
       try {
-        mainApi.deleteMovies(film._id);
+        await mainApi.deleteMovies(film._id);
         let temp = filmsSaved.filter((obj) => obj._id != film._id);
         setFilmsSaved(temp);
         localStorage.setItem("filmsSaved", JSON.stringify(temp));
@@ -114,7 +113,7 @@ function Movies({ openPopup, isLoading }) {
     }
   }
 
-  function handleGetMovies(filmsInputSearch) {
+  async function handleGetMovies(filmsInputSearch) {
     if (!filmsInputSearch) {
       openPopup("Введите ключевое слово и повторите  поиск!", false);
       setError(true);
@@ -130,20 +129,20 @@ function Movies({ openPopup, isLoading }) {
       let filmsFilter = [];
 
       if (localStorageFilms === null) {
-        const filmsArray = moviesApi.getMovies();
-        localStorage.setItem("films", JSON.stringify(filmsArray));
+        const filmsArray = await moviesApi.getMovies();
+        localStorage.setItem("films", JSON.stringify(filmsArray)); // найденные фильмы
 
         filmsFilter = filmsArray.filter(({ nameRU }) =>
           nameRU.toLowerCase().includes(filmsInputSearch.toLowerCase())
         );
 
-        localStorage.setItem("filmsFilter", JSON.stringify(filmsFilter));
+        localStorage.setItem("filmsFilter", JSON.stringify(filmsFilter)); // найденные фильмы
       } else {
         filmsFilter = JSON.parse(localStorageFilms).filter(({ nameRU }) =>
           nameRU.toLowerCase().includes(filmsInputSearch.toLowerCase())
         );
 
-        localStorage.setItem("filmsFilter", JSON.stringify(filmsFilter));
+        localStorage.setItem("filmsFilter", JSON.stringify(filmsFilter)); // найденные фильмы
       }
 
       if (filmsFilter.length > 0) {
@@ -161,11 +160,15 @@ function Movies({ openPopup, isLoading }) {
         openPopup("Ничего не найдено", false);
       }
 
-      localStorage.setItem("filmsFilter", JSON.stringify(filmsFilter));
-      localStorage.setItem("filmsInputSearch", filmsInputSearch);
-      localStorage.setItem("filmsSwitch", filmsSwitch);
+      //текст запроса, найденные фильмы и состояние переключателя короткометражек сохраняются в хранилище
+      localStorage.setItem("filmsFilter", JSON.stringify(filmsFilter)); // найденные фильмы
+      localStorage.setItem("filmsInputSearch", filmsInputSearch); //текст запроса,
+      localStorage.setItem("filmsSwitch", filmsSwitch); //переключатель,
     } catch (err) {
-      openPopup(`Во время запроса произошла ошибка.`, false);
+      openPopup(
+        `Во время запроса произошла ошибка.       Попробуйте позже.`,
+        false
+      );
       setFilms([]);
       setError(true);
       localStorage.removeItem("films");
