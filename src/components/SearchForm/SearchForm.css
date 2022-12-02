@@ -49,6 +49,7 @@
     outline: none;
     border: none;
     background: none;
+    color: white;
 }
 
 .search__input:focus {
@@ -108,11 +109,19 @@
 .search__slider {
     position: absolute;
     inset: 0;
-    background-color: #3DDC84;
     border-radius: 16px;
     transition: .6s;
     transform: scale(-1, -1);
 }
+
+.search__slider_active {
+    background-color: #3DDC84;
+}
+
+.search__slider_inactive {
+    background-color: #424242;
+}
+
 
 .search__slider::before {
     position: absolute;
@@ -127,7 +136,7 @@
 }
 
 .search__checkbox:checked + .search__slider {
-    background-color: #3DDC84;
+    /* background-color: #3DDC84; */
 }
 
 .search__checkbox:checked + .search__slider::before {
@@ -168,7 +177,7 @@
         width: 100%;
         padding-top: 18px;
         padding-bottom: 18px;
-        background-color: #2F2F2F;
+        background-color: #a0a0a0;
         border-radius: 9px;
     }
 
@@ -192,4 +201,5 @@
         padding: 0;
         margin: 0 0 0 13px;
     }
+
 }

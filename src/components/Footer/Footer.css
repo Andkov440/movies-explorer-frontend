@@ -4,7 +4,7 @@
     text-align: center;
 }
 
-.footer__container {
+.footer__wrapper {
     padding-top: 18px;
     display: flex;
     justify-content: space-between;
@@ -67,7 +67,7 @@
         font-size: 12px;
     }
 
-    .footer__container {
+    .footer__wrapper {
         padding-top: 27px;
         flex-direction: column-reverse;
         align-items: center;

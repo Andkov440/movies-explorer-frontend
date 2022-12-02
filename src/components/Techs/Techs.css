@@ -30,14 +30,11 @@
 }
 
 .techs__techsnology {
-    padding-left: 0px;
     margin-top: 100px;
     margin-bottom: 100px;
+    width: 100%;
     display: flex;
-    gap: 10px;
-    list-style: none;
-    flex-wrap: wrap;
-
+    justify-content: center;
 }
 
 .techs__item {
@@ -45,6 +42,7 @@
     height: 60px;
     background-color: #303030;
     border-radius: 10px;
+    margin: 0 5px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -84,6 +82,7 @@
     }
 
     .techs__item {
+        margin: 0 2px;
         font-size: 12px;
         line-height: 15px;
     }
@@ -91,9 +90,13 @@
 
 @media all and (max-width: 700px) {
     .techs__techsnology {
+        display: grid;
+        gap: 10px;
+        list-style: none;
         margin: 50px 0 70px;
-        padding-left: 71px;
-        padding-right: 71px;
+        padding: 0;
+        justify-items: center;
+        grid-template-columns: repeat(4, auto);
     }
 }
 
@@ -118,6 +121,10 @@
 
     .techs__description {
         margin-top: 23px;
+    }
+
+    .techs__techsnology {
+        grid-template-columns: repeat(2, auto);
     }
 
     .techs__item {
